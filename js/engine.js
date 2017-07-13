@@ -13,7 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -28,6 +27,17 @@ var Engine = (function(global) {
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
+
+    /* Set the text attributes for the scoreboard and the messages to be
+     * displayed over the canvas
+     */
+    ctx.font = "36pt Impact";
+    ctx.textAlign = "center";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 3;
+    ctx.fillStyle = "white";
+
+
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -69,18 +79,26 @@ var Engine = (function(global) {
         main();
     }
 
-    /* This function is called by main (our game loop) and itself calls all
-     * of the functions which may need to update entity's data. Based on how
-     * you implement your collision detection (when two entities occupy the
-     * same space, for instance when your character should die), you may find
-     * the need to add an additional function call here. For now, we've left
-     * it commented out - you may or may not want to implement this
-     * functionality this way (you could just implement collision detection
-     * on the entities themselves within your app.js file).
+    /* If the module of the distance between the player and the enemy in
+     * both directions (x and y) is less than 50 (approximately half a
+     * block, since they travel from the center of one block to the center
+     * of another) at the same time, than return the player to the
+     * starting point and reset scoreboard.
      */
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            if ((Math.abs(enemy.x - player.x) < 50) && (Math.abs(enemy.y - player.y) < 50)) {
+                player.x = 202;
+                player.y = 375;
+                if (player.points > 0) player.points = 0;
+                allEnemies = [];
+            }
+        });
+    }
+
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -104,16 +122,17 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top 2 rows are water
+                'images/water-block.png', // Top 2 rows are water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Bottom row is grass
             ],
             numRows = 6,
             numCols = 5,
@@ -136,6 +155,10 @@ var Engine = (function(global) {
             }
         }
 
+        // Draw the scoreboard on the screen
+        ctx.fillText(player.points.toString(), canvas.width / 2, 110);
+        ctx.strokeText(player.points.toString(), canvas.width / 2, 110);
+
         renderEntities();
     }
 
@@ -152,6 +175,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+
     }
 
     /* This function does nothing but it could have been a good place to
@@ -162,7 +186,7 @@ var Engine = (function(global) {
         // noop
     }
 
-    /* Go ahead and load all of the images we know we're going to need to
+    /* Load all of the images we're going to need to
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
      */
@@ -170,8 +194,12 @@ var Engine = (function(global) {
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
     ]);
     Resources.onReady(init);
 

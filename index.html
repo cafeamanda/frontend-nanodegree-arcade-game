@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
+    <!-- The meta tag bellow was added in order do disable the pinch zooming in mobile devices. That's because the majority of devices today, when double-clicked, respond with zooming in or zooming out the content on the page. In this gaming application that can be a problem, given that the controllers on the screen get double-clicked rapidly all the time.-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+
+    <!-- This block of code comes after the scripts so that the mobile-device controllers are included bellow the canvas. This way, the user can see the game better, thus providind better gameplay. -->
+    <section class="controllers">
+        <h1><span id="up" class="button">▲</span></h1>
+        <div class="row-flex">
+            <h1><span id="left" class="button">◀</span></h1>
+            <h1><span id="right" class="button">▶</span></h1>
+        </div>
+        <h1><span id="down" class="button">▼</span></h1>
+    </section>
 </body>
+
 </html>

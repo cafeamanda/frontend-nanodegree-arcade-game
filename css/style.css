@@ -1,3 +1,60 @@
 body {
     text-align: center;
 }
+
+body * {
+    max-width: 100%;
+}
+
+.controllers * {
+    margin: 0;
+    color: turquoise;
+}
+
+.row-flex {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.row-flex * {
+    width: 50%;
+    padding: 20px 20px;
+}
+
+.button {
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: turquoise;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button:hover {
+    background-color: darkturquoise;
+}
+
+.button:active {
+    background-color: lightblue;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+@media (min-width:801px) {
+    .controllers {
+        display: none;
+ /* Display the controllers for mobile devices only */;
+    };
+}
+
+@media (max-width: 800px) {
+    body * {
+        max-height: 60vh;
+    };
+}

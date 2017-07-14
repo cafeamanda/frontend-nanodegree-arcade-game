@@ -11,6 +11,18 @@ body * {
     color: turquoise;
 }
 
+.instructions {
+    max-width: 505px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 0;
+    font-family: Helvetica, sans-serif;
+}
+
+.instructions ul {
+    text-align: left;
+}
+
 .row-flex {
     display: flex;
     flex-wrap: nowrap;
@@ -48,13 +60,12 @@ body * {
 
 @media (min-width:801px) {
     .controllers {
-        display: none;
- /* Display the controllers for mobile devices only */;
-    };
+        display: none; /* Display the controllers for mobile devices only */
+    }
 }
 
 @media (max-width: 800px) {
     body * {
         max-height: 60vh;
-    };
+    }
 }

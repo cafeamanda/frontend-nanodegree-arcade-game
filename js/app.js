@@ -1,3 +1,5 @@
+'use strict';
+
 // Enemies Class
 var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
@@ -57,7 +59,7 @@ var Player = function() {
 // add 1 point to the scoreboard every time the
 // hero reaches the water.
 Player.prototype.update = function(key) {
-    if (key === 'up' && player.y <= 81 && !isNaN(this.points)) {
+    if (key === 'up' && this.y <= 81 && !isNaN(this.points)) {
         this.x = 202;
         this.y = 375;
         this.points++;

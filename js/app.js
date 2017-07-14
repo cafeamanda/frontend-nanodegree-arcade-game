@@ -1,4 +1,6 @@
-'use strict';
+(function () {
+   'use strict';
+}());
 
 // Enemies Class
 var Enemy = function() {
